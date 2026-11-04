@@ -1,0 +1,219 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/bodoni-moda/wght.css';
+@import '@fontsource-variable/bodoni-moda/wght-italic.css';
+@import '@fontsource-variable/hanken-grotesk/wght.css';
+
+@theme {
+  --color-ink: #08131f;
+  --color-ink-2: #10233a;
+  --color-paper: #f5f4ef;
+  --color-paper-2: #e9e7df;
+  --color-majolica: #2343c8;
+  --color-majolica-deep: #18318f;
+  --color-limone: #f1dc4a;
+  --color-limone-deep: #e2c92a;
+  --color-danger: #b42318;
+  --color-muted: #566270;
+
+  --font-display: 'Bodoni Moda Variable', 'Bodoni 72', 'Didot', 'Times New Roman', serif;
+  --font-sans: 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  background: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-limone);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-majolica);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.on-dark :focus-visible,
+.on-dark:focus-visible {
+  outline-color: var(--color-limone);
+}
+
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+@layer components {
+  .gutter {
+    padding-inline: clamp(1rem, 4vw, 4rem);
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    transition:
+      background-color 0.25s,
+      color 0.25s,
+      border-color 0.25s,
+      transform 0.25s var(--ease-out-soft);
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn-primary {
+    background: var(--color-majolica);
+    color: white;
+  }
+  .btn-primary:hover {
+    background: var(--color-majolica-deep);
+  }
+  .btn-limone {
+    background: var(--color-limone);
+    color: var(--color-ink);
+  }
+  .btn-limone:hover {
+    background: white;
+  }
+  .btn-line {
+    border: 1px solid currentColor;
+  }
+  .btn-line:hover {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .on-dark .btn-line:hover {
+    background: var(--color-paper);
+    border-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .link-line {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+    padding-bottom: 2px;
+    transition: background-size 0.4s var(--ease-out-soft);
+  }
+  .link-line:hover {
+    background-size: 0 1px;
+    background-position: 100% 100%;
+  }
+
+  .field {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid rgb(8 19 31 / 0.25);
+    border-radius: 0.5rem;
+    background: white;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+  .field:hover {
+    border-color: rgb(8 19 31 / 0.5);
+  }
+  .field[aria-invalid='true'] {
+    border-color: var(--color-danger);
+  }
+
+  .no-bar {
+    scrollbar-width: none;
+  }
+  .no-bar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Slide progress on the hero. Animation drives the auto-advance bar only. */
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.1);
+    opacity: 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.09);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
